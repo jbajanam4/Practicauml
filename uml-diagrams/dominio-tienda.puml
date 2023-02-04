@@ -1,0 +1,56 @@
+@startuml
+class Tienda{
+    nombre:string
+    contacto:string
+    dinero_caja:double
+    bodega:Inventario
+}
+
+
+
+class TipoProducto{
+    codigo:string
+    nombre:string
+}
+
+class Producto{
+    nombre:string
+    codigo:int
+    iva:Impuesto
+
+}
+
+class Impuesto{
+    Drogueria:0.12
+    Papeleria:0.16
+    Supermercado:0.04
+}
+
+class Inventario{
+    producto:Producto
+    stock:int
+    cant_vendida:int
+    tipo:TipoProducto
+    cantidad_minima:int
+    precio_base:double
+}
+
+class CasoUsoTienda{
+    repositorioTienda:Inventario
+    + visualizar_producto(nombre,codigo)
+    + vender(nombre,cantidad)
+    + abastecer_tienda(nombre,cantidad)
+    + cambiar_producto(nombre_actual,nuevo_nombre,tipo,valor,cantidad,cantidad_minima)
+    + estadisticas()
+
+}
+
+
+
+Producto *-- Impuesto
+Inventario o-- Producto 
+Tienda *-- Inventario
+CasoUsoTienda ..> Inventario
+Inventario o-- TipoProducto
+
+@enduml
